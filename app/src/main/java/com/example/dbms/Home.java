@@ -1,0 +1,59 @@
+package com.example.dbms;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+
+import android.os.Bundle;
+import android.view.MenuItem;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+public class Home extends AppCompatActivity {
+private BottomNavigationView bottomNavigationView;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_home);
+        bottomNavigationView = findViewById(R.id.bottom_nav);
+        loadFragment(new Dashboard());
+        bottomNavigationView.setSelectedItemId(R.id.navigation_dashboard);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                Fragment fragment = null;
+
+                switch (menuItem.getItemId()) {
+                    case R.id.navigation_home:
+                        fragment = new HomePage();
+                        break;
+
+                    case R.id.navigation_dashboard:
+                        fragment = new Dashboard();
+                        break;
+
+                    case R.id.navigation_profile:
+                        fragment = new Profile();
+                        break;
+                }
+
+                return loadFragment(fragment);
+            }
+        });
+    }
+
+
+
+
+    private boolean loadFragment(Fragment fragment) {
+        //switching fragment
+        if (fragment != null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.FragmentContainer, fragment)
+                    .commit();
+            return true;
+        }
+        return false;
+    }
+}

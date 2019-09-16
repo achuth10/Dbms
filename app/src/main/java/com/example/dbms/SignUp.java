@@ -2,11 +2,13 @@ package com.example.dbms;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -22,6 +24,7 @@ public class SignUp extends AppCompatActivity {
     private Button signup;
     private String name, email, password;
     private EditText emailedit,passwordedit,nameedit;
+    private TextView alreadyuser;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,18 +46,26 @@ public class SignUp extends AppCompatActivity {
             }
             }
         });
-
+alreadyuser= findViewById(R.id.already_user);
+alreadyuser.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        startActivity(new Intent(getApplicationContext(),Login.class));
+    }
+});
 
     }
-    
+
 
 private void insertnewuser()
 {
     StringRequest request = new StringRequest(Request.Method.POST, Constants.REG_URL, new Response.Listener<String>() {
         @Override
         public void onResponse(String response) {
-            Toast.makeText(getApplicationContext(),response.toString(), Toast.LENGTH_LONG).show();
-            System.out.println("Respone is " + response.toString());
+            //Toast.makeText(getApplicationContext(),response.toString(), Toast.LENGTH_LONG).show();
+            System.out.println("Response is : " + response.toString());
+            if(response.toString().contains("Values inserted"))
+                startActivity(new Intent(getApplicationContext(),Home.class));
         }
     }, new Response.ErrorListener() {
         @Override
@@ -79,4 +90,9 @@ private void insertnewuser()
     MySingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
 
 }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
 }
