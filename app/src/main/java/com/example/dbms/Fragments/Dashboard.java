@@ -1,4 +1,4 @@
-package com.example.dbms;
+package com.example.dbms.Fragments;
 
 
 import android.os.Bundle;
@@ -9,14 +9,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.dbms.R;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomePage extends Fragment {
+public class Dashboard extends Fragment {
 
 
-    public HomePage() {
+    public Dashboard() {
         // Required empty public constructor
     }
 
@@ -25,7 +27,8 @@ public class HomePage extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home_page, container, false);
+        View  v = inflater.inflate(R.layout.fragment_dashboard, container, false);
+        return v;
     }
 
 }

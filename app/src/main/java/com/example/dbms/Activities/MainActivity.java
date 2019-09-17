@@ -1,8 +1,10 @@
-package com.example.dbms;
+package com.example.dbms.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.dbms.R;
 
 public class MainActivity extends AppCompatActivity {
 

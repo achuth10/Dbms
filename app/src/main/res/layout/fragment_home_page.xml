@@ -1,14 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomePage">
+    tools:context=".Fragments.HomePage">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Home" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textSize="30dp"
+        android:id="@+id/AddCroptxt"
+        android:textColor="#000000"
+        android:layout_marginTop="100dp"
+        android:layout_marginBottom="20dp"
+        android:text="Add a crop" />
 
-</FrameLayout>
+
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/AddCroptxt"
+        android:hint="Enter Crop Name"
+        android:id="@+id/CropNameEdit"
+        android:layout_marginTop="50dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/AddCropBtn"
+        android:text="Add Crop"
+        android:layout_below="@id/CropNameEdit"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="60dp"/>
+
+</RelativeLayout>
