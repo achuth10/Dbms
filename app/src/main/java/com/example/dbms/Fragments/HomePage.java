@@ -60,7 +60,7 @@ public class HomePage extends Fragment {
                 crop = cropname.getText().toString();
                 if (pref.getString(Constants.KEY_EMAIL, null) != null) {
                    //System.out.println(pref.getString(Constants.KEY_EMAIL,null));
-                    insertnewcrop();
+                    getcrops();
 
                 }
                 else
@@ -74,12 +74,15 @@ public class HomePage extends Fragment {
 
 
     //temporarily used to get list of crops
-    private void insertnewcrop() {
+    private void getcrops() {
         StringRequest request = new StringRequest(Request.Method.POST, Constants.LISTCROP_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Toast.makeText(getContext(),response.toString(), Toast.LENGTH_LONG).show();
-               System.out.println("Response is : " + response.toString());
+              System.out.println("Response is : " + response.toString());
+
+//                if(response.toString().contains("Values inserted"))
+//                    startActivity(new Intent(getContext(), Home.class));
             }
         }, new Response.ErrorListener() {
             @Override
