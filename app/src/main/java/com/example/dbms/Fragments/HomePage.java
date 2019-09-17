@@ -72,12 +72,14 @@ public class HomePage extends Fragment {
         return  v;
     }
 
+
+    //temporarily used to get list of crops
     private void insertnewcrop() {
-        StringRequest request = new StringRequest(Request.Method.POST, Constants.ADDCROP_URL, new Response.Listener<String>() {
+        StringRequest request = new StringRequest(Request.Method.POST, Constants.LISTCROP_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Toast.makeText(getContext(),response.toString(), Toast.LENGTH_LONG).show();
-                System.out.println("Response is : " + response.toString());
+//                System.out.println("Response is : " + response.toString());
 //                if(response.toString().contains("Values inserted"))
 //                    startActivity(new Intent(getContext(), Home.class));
             }
