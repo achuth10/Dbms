@@ -80,6 +80,7 @@ public class HomePage extends Fragment {
             public void onResponse(String response) {
                 Toast.makeText(getContext(),response.toString(), Toast.LENGTH_LONG).show();
               System.out.println("Response is : " + response.toString());
+
 //                if(response.toString().contains("Values inserted"))
 //                    startActivity(new Intent(getContext(), Home.class));
             }
