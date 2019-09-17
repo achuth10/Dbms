@@ -1,4 +1,4 @@
-package com.example.dbms;
+package com.example.dbms.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,6 +7,10 @@ import androidx.fragment.app.Fragment;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.dbms.Fragments.Dashboard;
+import com.example.dbms.Fragments.HomePage;
+import com.example.dbms.Fragments.Profile;
+import com.example.dbms.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Home extends AppCompatActivity {
