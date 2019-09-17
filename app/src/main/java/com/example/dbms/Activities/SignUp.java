@@ -1,10 +1,10 @@
-package com.example.dbms;
+package com.example.dbms.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +16,9 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.example.dbms.Models.Constants;
+import com.example.dbms.Models.MySingleton;
+import com.example.dbms.R;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,14 +28,25 @@ public class SignUp extends AppCompatActivity {
     private String name, email, password;
     private EditText emailedit,passwordedit,nameedit;
     private TextView alreadyuser;
+    private SharedPreferences pref ;
+    private SharedPreferences.Editor editor ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+
+
         signup = findViewById(R.id.SignUpBtn);
         nameedit = (EditText)findViewById(R.id.NameEdit);
         emailedit = (EditText)findViewById(R.id.EmailEdit);
         passwordedit = (EditText)findViewById(R.id.PasswordEdit);
+        alreadyuser= findViewById(R.id.already_user);
+        pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode;
+        editor = pref.edit();
+
+
+
+
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -46,15 +60,15 @@ public class SignUp extends AppCompatActivity {
             }
             }
         });
-alreadyuser= findViewById(R.id.already_user);
-alreadyuser.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        startActivity(new Intent(getApplicationContext(),Login.class));
-    }
-});
 
-    }
+        alreadyuser.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            startActivity(new Intent(getApplicationContext(),Login.class));
+            }
+         });
+
+        }
 
 
 private void insertnewuser()
@@ -64,9 +78,12 @@ private void insertnewuser()
         public void onResponse(String response) {
             //Toast.makeText(getApplicationContext(),response.toString(), Toast.LENGTH_LONG).show();
             System.out.println("Response is : " + response.toString());
-            if(response.toString().contains("Values inserted"))
-                startActivity(new Intent(getApplicationContext(),Home.class));
-        }
+            if(response.toString().contains("Values inserted")) {
+                editor.putString(Constants.KEY_EMAIL, email);
+                editor.commit();
+                startActivity(new Intent(getApplicationContext(), Home.class));
+                }
+            }
     }, new Response.ErrorListener() {
         @Override
         public void onErrorResponse(VolleyError error) {

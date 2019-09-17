@@ -1,4 +1,4 @@
-package com.example.dbms;
+package com.example.dbms.Models;
 
 import android.content.Context;
 import android.graphics.Bitmap;
