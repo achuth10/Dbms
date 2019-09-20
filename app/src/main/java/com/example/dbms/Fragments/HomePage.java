@@ -39,6 +39,7 @@ public class HomePage extends Fragment {
     private Button addcrop;
     public HomePage() {
         // Required empty public constructor
+        setRetainInstance(true);
     }
 
 
@@ -75,11 +76,15 @@ public class HomePage extends Fragment {
 
     //temporarily used to get list of crops
     private void getcrops() {
-        StringRequest request = new StringRequest(Request.Method.POST, Constants.LISTCROP_URL, new Response.Listener<String>() {
+        StringRequest request = new StringRequest(Request.Method.POST, Constants.VIEWCROP_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 Toast.makeText(getContext(),response.toString(), Toast.LENGTH_LONG).show();
               System.out.println("Response is : " + response.toString());
+                String[] items = response.split(",");
+                for (String item : items) {
+                    System.out.println(item);
+                }
 
 //                if(response.toString().contains("Values inserted"))
 //                    startActivity(new Intent(getContext(), Home.class));
@@ -97,7 +102,7 @@ public class HomePage extends Fragment {
                 Map <String,String> params  = new HashMap<String,String>();
 
                 params.put(Constants.KEY_CROP,crop);
-                params.put(Constants.KEY_EMAIL,pref.getString(Constants.KEY_EMAIL, null));
+               // params.put(Constants.KEY_EMAIL,pref.getString(Constants.KEY_EMAIL, null));
                 return params;
             }
         };

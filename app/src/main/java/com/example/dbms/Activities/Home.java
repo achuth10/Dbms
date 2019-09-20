@@ -44,6 +44,12 @@ private BottomNavigationView bottomNavigationView;
                 return loadFragment(fragment);
             }
         });
+        bottomNavigationView.setOnNavigationItemReselectedListener(new BottomNavigationView.OnNavigationItemReselectedListener() {
+            @Override
+            public void onNavigationItemReselected(@NonNull MenuItem menuItem) {
+                //Do nothing
+            }
+        });
     }
 
 
