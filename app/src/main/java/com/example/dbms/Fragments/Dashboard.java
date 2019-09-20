@@ -82,13 +82,14 @@ private Spinner spinner;
                     spinnerArray.add(item);
                 }
 
+                if (getActivity()!=null) {
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                            getActivity(), android.R.layout.simple_spinner_item, spinnerArray);
 
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                        getActivity(), android.R.layout.simple_spinner_item, spinnerArray);
-
-                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                spinner.setAdapter(adapter);
-                progressBar.setVisibility(View.INVISIBLE);
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spinner.setAdapter(adapter);
+                    progressBar.setVisibility(View.INVISIBLE);
+                }
 
             }
         }, new Response.ErrorListener() {
