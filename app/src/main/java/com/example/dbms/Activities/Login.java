@@ -1,11 +1,14 @@
 package com.example.dbms.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -29,6 +32,7 @@ private EditText loginedit,passwordedit;
 private String email,password;
 private TextView register;
 private Button loginbtn;
+private ConstraintLayout mainLayout;
 private ProgressBar progressBar;
     private SharedPreferences pref ;
     private SharedPreferences.Editor editor ;
@@ -41,11 +45,14 @@ private ProgressBar progressBar;
         passwordedit = findViewById(R.id.password);
         register = findViewById(R.id.RegisterTxt);
         progressBar = findViewById(R.id.loading);
+        mainLayout = findViewById(R.id.container);
         pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode;
         editor = pref.edit();
         loginbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(mainLayout.getWindowToken(), 0);
 
                 email = loginedit.getText().toString().trim();
                 password = passwordedit.getText().toString().trim();
@@ -86,8 +93,10 @@ loginbtn.setEnabled(false);
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                //Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_SHORT).show();
                 System.out.println("Error is " + error.toString());
+                progressBar.setVisibility(View.INVISIBLE);
+                loginbtn.setEnabled(true);
             }
         })
         {
