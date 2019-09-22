@@ -36,6 +36,7 @@ private ConstraintLayout mainLayout;
 private ProgressBar progressBar;
     private SharedPreferences pref ;
     private SharedPreferences.Editor editor ;
+    private String status;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +49,8 @@ private ProgressBar progressBar;
         mainLayout = findViewById(R.id.container);
         pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode;
         editor = pref.edit();
+        status = pref.getString("Status",null);
+
         loginbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,8 +62,9 @@ private ProgressBar progressBar;
                 if (email.length()>0 && password.length()> 0 )
                 {
                     login();
+                    editor.putString("Status","In");
+                    editor.apply();
                 }
-//startActivity(new Intent(getApplicationContext(),Home.class));
 
             }
         });
@@ -70,11 +74,22 @@ private ProgressBar progressBar;
                 startActivity(new Intent(getApplicationContext(),SignUp.class));
             }
         });
+
+        if(status!=null) {
+            if (status.equals("In"))
+            {
+                startActivity(new Intent(getApplicationContext(), Home.class));
+            }
+        }
     }
 
     private void login() {
         progressBar.setVisibility(View.VISIBLE);
 loginbtn.setEnabled(false);
+
+
+
+
         StringRequest request = new StringRequest(Request.Method.POST, Constants.LOGIN_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -88,6 +103,7 @@ loginbtn.setEnabled(false);
                 } else {
                     Toast.makeText(getApplicationContext(), "Invalid Credentials", Toast.LENGTH_SHORT).show();
                     progressBar.setVisibility(View.INVISIBLE);
+                    loginbtn.setEnabled(true);
                 }
             }
         }, new Response.ErrorListener() {

@@ -5,17 +5,31 @@
     android:layout_height="match_parent"
     tools:context=".Fragments.Dashboard">
 
-    <Spinner
-        android:id="@+id/Crop_spinner"
-        android:layout_width="fill_parent"
-        android:layout_centerHorizontal="true"
-        android:layout_margin="50dp"
-        android:layout_height="wrap_content" />
-    <ProgressBar
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/DashboardTxt"
+        android:layout_margin="20dp"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:id="@+id/ListProgress"/>
+        android:textSize="20sp"
+        android:text="My Crops "/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/CropListRecyclerDashboard"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/DashboardTxt"
+
+        />
+
+
+<ProgressBar
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true"
+    android:id="@+id/ListProgress"/>
+
 
 </RelativeLayout>
