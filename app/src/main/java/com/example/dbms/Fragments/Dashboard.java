@@ -87,7 +87,7 @@ private Spinner spinner;
             @Override
             public void onResponse(String response) {
                 //Toast.makeText(getContext(),response.toString(), Toast.LENGTH_LONG).show();
-                System.out.println("My ccrops is : " + response.toString());
+                //System.out.println("My ccrops is : " + response.toString());
                 items = response.split(",");
                 ArrayList<Crop> crops =  new ArrayList<Crop>();
                 for (String item : items) {

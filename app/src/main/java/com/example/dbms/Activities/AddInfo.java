@@ -78,15 +78,15 @@ private Spinner spinner;
     private void getcrops() {
         progressBar.setVisibility(View.VISIBLE);
 
-        StringRequest request = new StringRequest(Request.Method.POST, Constants.LISTCROP_URL, new Response.Listener<String>() {
+        StringRequest request = new StringRequest(Request.Method.POST, Constants.AVAILABLECROPS_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 //Toast.makeText(getContext(),response.toString(), Toast.LENGTH_LONG).show();
-                System.out.println("Response is : " + response.toString());
+               // System.out.println("Response is : " + response.toString());
                 items = response.split(",");
                 List<String> spinnerArray =  new ArrayList<String>();
                 for (String item : items) {
-                    System.out.println(item);
+                    //System.out.println(item);
                     spinnerArray.add(item);
                 }
 
@@ -114,6 +114,7 @@ private Spinner spinner;
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map <String,String> params  = new HashMap<String,String>();
+                params.put(Constants.KEY_EMAIL,pref.getString(Constants.KEY_EMAIL, null));
                 return params;
             }
         };

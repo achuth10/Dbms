@@ -11,10 +11,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="Crop name "
         android:textSize="30dp"
         android:textColor="#000000"
-        android:layout_margin="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="50dp"
         android:id="@+id/CropNameTxt"/>
 
 
@@ -23,7 +23,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="Climate"
         android:layout_below="@id/CropNameTxt"
         android:textSize="20dp"
         android:layout_margin="15dp"
@@ -37,7 +36,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="Ph level "
         android:layout_below="@id/ClimateTxt"
         android:textSize="20dp"
         android:layout_margin="15dp"
@@ -50,13 +48,11 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@id/PhTxt"
         android:id="@+id/RainfallTxt"
-        android:text="Rainfall needed"
         android:layout_margin="15dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pollination"
         android:id="@+id/PollinationTxt"
         android:layout_below="@id/RainfallTxt"
         android:layout_margin="15dp"

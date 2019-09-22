@@ -61,7 +61,7 @@ public class HomePage extends Fragment {
                 crop = cropname.getText().toString();
                 if (pref.getString(Constants.KEY_EMAIL, null) != null) {
                    //System.out.println(pref.getString(Constants.KEY_EMAIL,null));
-                    getcrops();
+                   // getcrops();
 
                 }
                 else
@@ -75,40 +75,6 @@ public class HomePage extends Fragment {
 
 
     //temporarily used to get list of crops
-    private void getcrops() {
-        StringRequest request = new StringRequest(Request.Method.POST, Constants.VIEWCROP_URL, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                Toast.makeText(getContext(),response.toString(), Toast.LENGTH_LONG).show();
-              System.out.println("Response is : " + response.toString());
-                String[] items = response.split(",");
-                for (String item : items) {
-                    System.out.println(item);
-                }
 
-//                if(response.toString().contains("Values inserted"))
-//                    startActivity(new Intent(getContext(), Home.class));
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(),error.toString(),Toast.LENGTH_SHORT).show();
-                System.out.println(error.toString());
-            }
-        })
-        {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map <String,String> params  = new HashMap<String,String>();
-
-                params.put(Constants.KEY_CROP,crop);
-               // params.put(Constants.KEY_EMAIL,pref.getString(Constants.KEY_EMAIL, null));
-                return params;
-            }
-        };
-
-        MySingleton.getInstance(getContext()).addToRequestQueue(request);
-
-    }
 
 }

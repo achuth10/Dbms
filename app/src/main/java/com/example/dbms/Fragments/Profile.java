@@ -54,7 +54,7 @@ public class Profile extends Fragment {
     private SharedPreferences pref ;
     private SharedPreferences.Editor editor ;
     private CropAdapter cropAdapter;
-    private RecyclerView recyclerView;
+   // private RecyclerView recyclerView;
 //    private ProgressBar progressBar;
     public Profile() {
         // Required empty public constructor
@@ -70,7 +70,7 @@ public class Profile extends Fragment {
         fab = v.findViewById(R.id.floatingActionButton);
         name = v.findViewById(R.id.nametxt);
         location = v.findViewById(R.id.LocationTxt);
-        recyclerView = v.findViewById(R.id.CropListRecyclerProfile);
+        //recyclerView = v.findViewById(R.id.CropListRecyclerProfile);
         rain = v.findViewById(R.id.RainfallTxt);
 //        progressBar = v.findViewById(R.id.MyProfileProgress);
         temp= v.findViewById(R.id.AverageTempTxt);
@@ -90,29 +90,26 @@ public class Profile extends Fragment {
     public void onStart() {
         super.onStart();
         getinfo();
-        getMyCrops();
     }
 
 
 
     private void getinfo() {
-//        progressBar.setVisibility(View.VISIBLE);
 
         StringRequest request = new StringRequest(Request.Method.POST, Constants.PROFILE_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 //Toast.makeText(getContext(),response.toString(), Toast.LENGTH_LONG).show();
-                System.out.println("Response is : " + response.toString());
+                //System.out.println("Response is : " + response.toString());
                 items = response.split(",");
-                for (String item : items) {
-                    System.out.println(item);
-                }
+//                for (String item : items) {
+//                    System.out.println(item);
+//                }
                 if(items.length>=4) {
                     name.setText("Name : " + items[0]);
                     location.setText("Location : " + items[1]);
                     temp.setText("Temperature : " + items[2]);
                     rain.setText("Rainfall (cm) : " + items[3]);
-//                progressBar.setVisibility(View.INVISIBLE);
                 }
 
             }
@@ -121,7 +118,6 @@ public class Profile extends Fragment {
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getContext(),error.toString(),Toast.LENGTH_SHORT).show();
                 System.out.println("Error is " + error.toString());
-//                progressBar.setVisibility(View.INVISIBLE);
             }
         })
         {
@@ -137,59 +133,5 @@ public class Profile extends Fragment {
 
     }
 
-
-
-
-    private void getMyCrops() {
-
-
-        StringRequest request = new StringRequest(Request.Method.POST, Constants.LISTCROP_URL, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                //Toast.makeText(getContext(),response.toString(), Toast.LENGTH_LONG).show();
-                System.out.println("Response is : " + response.toString());
-                items = response.split(",");
-                ArrayList<Crop> crops =  new ArrayList<Crop>();
-                for (String item : items) {
-                    System.out.println(item);
-                    crops.add(new Crop(item));
-                }
-
-                if (getActivity()!=null) {
-//                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-//                            getActivity(), android.R.layout.simple_spinner_item, spinnerArray);
-//
-//                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//                    spinner.setAdapter(adapter);
-
-
-                    dispadapter(crops);
-                    //progressBar.setVisibility(View.INVISIBLE);
-                }
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(),error.toString(),Toast.LENGTH_SHORT).show();
-                System.out.println(error.toString());
-            }
-        })
-        {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map <String,String> params  = new HashMap<String,String>();
-                // params.put(Constants.KEY_EMAIL,pref.getString(Constants.KEY_EMAIL, null));
-                return params;
-            }
-        };
-
-        MySingleton.getInstance(getContext()).addToRequestQueue(request);
-    }
-    private void dispadapter(ArrayList<Crop> crops) {
-        cropAdapter = new CropAdapter(getContext(),crops);
-        recyclerView.setAdapter(cropAdapter);
-        cropAdapter.notifyDataSetChanged();
-    }
 
 }
