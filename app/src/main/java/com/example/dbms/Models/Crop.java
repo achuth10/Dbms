@@ -5,7 +5,17 @@ public class Crop {
     private String min_ph;
     private String max_ph;
     private String min_rainfall;
-public Crop(String name)
+    private String url;
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public Crop(String name)
 {
     this.crop_name = name;
 }

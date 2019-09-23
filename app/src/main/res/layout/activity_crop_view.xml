@@ -17,13 +17,19 @@
         android:layout_marginBottom="50dp"
         android:id="@+id/CropNameTxt"/>
 
-
+<ImageView
+    android:layout_width="200dp"
+    android:layout_height="200dp"
+    android:id="@+id/CropImage"
+    android:layout_centerHorizontal="true"
+    android:layout_below="@id/CropNameTxt"
+    android:layout_margin="20dp"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/CropNameTxt"
+        android:layout_below="@id/CropImage"
         android:textSize="20dp"
         android:layout_margin="15dp"
         android:id="@+id/ClimateTxt"/>
