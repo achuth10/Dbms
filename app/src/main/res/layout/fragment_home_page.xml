@@ -1,18 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Fragments.HomePage">
 
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:textSize="15sp"
+    android:textStyle="bold"
+    android:textColor="#000000"
+    android:layout_marginTop="20dp"
+    android:id="@+id/IdealCropTxt"
+    android:text="Ideal Crops to grow"/>
 
-    <Button
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_below="@id/IdealCropTxt"
+            android:id="@+id/IdealRecycler"/>
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/GetPhCrop"
-        android:text="Get Crops"
         android:layout_centerHorizontal="true"
-        android:layout_margin="60dp"/>
+        android:layout_marginTop="20dp"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:layout_below="@id/IdealRecycler"
+        android:id="@+id/PhCropTxt"
+        android:text="Crops compatible with current Ph"/>
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_marginTop="20dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/PhCropTxt"
+            android:id="@+id/PhRecycler"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/PhRecycler"
+        android:id="@+id/CropRainTxt"
+        android:text="Crops compatible with current Rainfall level"/>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_below="@id/CropRainTxt"
+            android:id="@+id/RainRecycler"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/RainRecycler"
+        android:id="@+id/CropTempTxt"
+        android:text="Crops compatible with current Temperature"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_below="@id/CropTempTxt"
+            android:id="@+id/TempRecycler"/>
 </RelativeLayout>
+</androidx.core.widget.NestedScrollView>
