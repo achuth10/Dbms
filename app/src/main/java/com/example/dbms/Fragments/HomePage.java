@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -44,6 +45,7 @@ public class HomePage extends Fragment {
     private ArrayList<Crop> crops,idealcrops,phcrops,tempcrops,raincrops;
     private String[] idealcropslist ,phcropslist ,tempcropslist ,raincropslist ,items;
     private RecyclerView idealR,phR,tempR,rainR;
+    private TextView ideal,ph,rain,temp;
     public HomePage() {
         // Required empty public constructor
         setRetainInstance(true);
@@ -61,11 +63,21 @@ public class HomePage extends Fragment {
         phR= v.findViewById(R.id.PhRecycler);
         tempR= v.findViewById(R.id.TempRecycler);
         rainR = v.findViewById(R.id.RainRecycler);
-idealcrops=new ArrayList<>();
-phcrops=new ArrayList<>();
-tempcrops=new ArrayList<>();
-raincrops=new ArrayList<>();
+        idealcrops=new ArrayList<>();
+        phcrops=new ArrayList<>();
+        tempcrops=new ArrayList<>();
+        raincrops=new ArrayList<>();
+        ideal = v.findViewById(R.id.IdealCropTxt);
+        ph = v.findViewById(R.id.PhCropTxt);
+        temp = v.findViewById(R.id.CropTempTxt);
+        rain= v.findViewById(R.id.CropRainTxt);
 
+
+
+        ideal.setVisibility(View.INVISIBLE);
+        ph.setVisibility(View.INVISIBLE);
+        rain.setVisibility(View.INVISIBLE);
+        temp.setVisibility(View.INVISIBLE);
         return  v;
     }
 
@@ -194,8 +206,10 @@ raincrops=new ArrayList<>();
 
 
                 if (getActivity()!=null) {
-
-
+                    ideal.setVisibility(View.VISIBLE);
+                    ph.setVisibility(View.VISIBLE);
+                    rain.setVisibility(View.VISIBLE);
+                    temp.setVisibility(View.VISIBLE);
                         idealR.setLayoutManager(new LinearLayoutManager(getContext()));
                         idealR.setAdapter(idealAdapter);
                         idealAdapter.notifyDataSetChanged();

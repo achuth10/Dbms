@@ -51,6 +51,8 @@ public class CropView extends AppCompatActivity {
         editor = pref.edit();
         if(bundle.getString("Crop")!= null)
         {
+            if(bundle.getInt("Delete")==0)
+                delete.setVisibility(View.INVISIBLE);
             cropname = bundle.getString("Crop");
             getCropDetails();
         }
@@ -104,7 +106,7 @@ public class CropView extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map <String,String> params  = new HashMap<String,String>();
                 cropname= cropname.trim();
-                params.put(Constants.KEY_CROP,cropname);
+                params.put(Constants.KEY_CROP,cropname.trim());
                 // params.put(Constants.KEY_EMAIL,pref.getString(Constants.KEY_EMAIL, null));
                 return params;
             }
@@ -147,7 +149,7 @@ public class CropView extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map <String,String> params  = new HashMap<String,String>();
                 params.put(Constants.KEY_EMAIL,pref.getString(Constants.KEY_EMAIL, null));
-                params.put(Constants.KEY_CROP,cropname);
+                params.put(Constants.KEY_CROP,cropname.trim());
                 return params;
             }
         };

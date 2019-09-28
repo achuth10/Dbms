@@ -61,6 +61,7 @@ public class PhAdapter extends RecyclerView.Adapter <PhAdapter.CropHolder>{
         public void onClick(View v) {
             Intent i = new Intent(context, CropView.class);
             i.putExtra("Crop",Cropname);
+            i.putExtra("Delete",0);
             context.startActivity(i);
         }
     }
