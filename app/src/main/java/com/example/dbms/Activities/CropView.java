@@ -2,8 +2,12 @@ package com.example.dbms.Activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,6 +20,7 @@ import com.bumptech.glide.Glide;
 import com.example.dbms.Models.Constants;
 import com.example.dbms.Models.MySingleton;
 import com.example.dbms.R;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,6 +31,10 @@ public class CropView extends AppCompatActivity {
     private TextView name,pollination,rainfall,ph,climate;
     private ImageView imageView;
     private String url = "https://i.ibb.co/GMLVq5H/Maize.jpg";
+    private Button delete;
+    private SharedPreferences pref ;
+    private SharedPreferences.Editor editor ;
+    private RelativeLayout relativeLayout;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crop_view);
@@ -36,12 +45,28 @@ public class CropView extends AppCompatActivity {
         rainfall = findViewById(R.id.RainfallTxt);
         ph = findViewById(R.id.PhTxt);
         imageView=findViewById(R.id.CropImage);
+        delete = findViewById(R.id.DeleteCropBtn);
+        relativeLayout = findViewById(R.id.relative);
+        pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode;
+        editor = pref.edit();
         if(bundle.getString("Crop")!= null)
         {
             cropname = bundle.getString("Crop");
-            //System.out.println("Crop is " + cropname);
             getCropDetails();
         }
+        delete.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                deleteCrop();
+                return true;
+            }
+        });
+        delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Snackbar.make(relativeLayout,"Long press to confirm delete",Snackbar.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void getCropDetails() {
@@ -90,6 +115,45 @@ public class CropView extends AppCompatActivity {
     }
 
 
+    private void deleteCrop() {
+        delete.setEnabled(false);
+        StringRequest request = new StringRequest(Request.Method.POST, Constants.DELETEROP_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                System.out.println("Response is : " + response.toString());
+                if(response.toString().contains("Crop deleted"))
+                {
+                    Toast.makeText(getApplicationContext(),"Crop deleted",Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+                else
+                    Toast.makeText(getApplicationContext(),"Error",Toast.LENGTH_SHORT).show();
 
+
+                delete.setEnabled(true);
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_SHORT).show();
+                System.out.println("Error is " + error.toString());
+                delete.setEnabled(true);
+            }
+        })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map <String,String> params  = new HashMap<String,String>();
+                params.put(Constants.KEY_EMAIL,pref.getString(Constants.KEY_EMAIL, null));
+                params.put(Constants.KEY_CROP,cropname);
+                return params;
+            }
+        };
+
+        MySingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
+
+    }
 
 }

@@ -134,9 +134,15 @@ raincrops=new ArrayList<>();
 
 
                 System.out.println("Ideal crops ");
-                for (String s : idealcropslist) {
-                    System.out.println(s);
-                    idealcrops.add(new Crop(s.trim()));
+                if(idealcropslist!=null) {
+                    for (String s : idealcropslist) {
+                        System.out.println(s);
+                        idealcrops.add(new Crop(s.trim()));
+                    }
+                }
+                else
+                {
+                    idealcrops.add(new Crop("No new Ideal crops"));
                 }
                 idealAdapter = new IdealAdapter(getContext(),idealcrops);
 
@@ -144,10 +150,14 @@ raincrops=new ArrayList<>();
 
 
                 System.out.println("ph crops " );
-                for (String s : phcropslist) {
-                    System.out.println(s);
-                    phcrops.add(new Crop(s.trim()));
+                if(phcropslist!=null) {
+                    for (String s : phcropslist) {
+                        System.out.println(s);
+                        phcrops.add(new Crop(s.trim()));
+                    }
                 }
+                else
+                    phcrops.add(new Crop("No new ph crops"));
                 phAdapter = new PhAdapter(getContext(),phcrops);
 
 
@@ -155,19 +165,27 @@ raincrops=new ArrayList<>();
 
 
                 System.out.println("temp crops " );
-                for (String s : tempcropslist) {
-                    System.out.println(s);
-                    tempcrops.add(new Crop(s.trim()));
+                if(tempcropslist!=null) {
+                    for (String s : tempcropslist) {
+                        System.out.println(s);
+                        tempcrops.add(new Crop(s.trim()));
+                    }
                 }
+                else
+                    tempcrops.add(new Crop("No new temperature crops"));
                 tempAdapter = new TempAdapter(getContext(),tempcrops);
 
 
 
                 System.out.println("rain crops " );
-                for (String s : raincropslist) {
-                    System.out.println(s);
-                    raincrops.add(new Crop(s.trim()));
+                if(raincropslist!=null) {
+                    for (String s : raincropslist) {
+                        System.out.println(s);
+                        raincrops.add(new Crop(s.trim()));
+                    }
                 }
+                else
+                    raincrops.add(new Crop("No new rain crops"));
                 rainAdapter = new RainAdapter(getContext(),raincrops);
 
 

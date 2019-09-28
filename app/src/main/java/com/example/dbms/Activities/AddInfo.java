@@ -61,8 +61,15 @@ private Spinner spinner;
         updatebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updatebtn.setEnabled(false);
-                updateinfo();
+                if (locationedit.getText().toString().length() > 0 &&
+                        phedit.getText().toString().length() > 0 &&
+                        rainfalledit.getText().toString().length() > 0 &&
+                        tempedit.getText().toString().length() > 0) {
+                    updatebtn.setEnabled(false);
+                    updateinfo();
+                }
+                else
+                    Toast.makeText(getApplicationContext(),"Please fill in all the details",Toast.LENGTH_SHORT).show();
             }
         });
 
