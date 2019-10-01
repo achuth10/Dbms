@@ -63,8 +63,6 @@ private ProgressBar progressBar;
                 if (email.length()>0 && password.length()> 0 )
                 {
                     login();
-                    editor.putString("Status","In");
-                    editor.apply();
                 }
 
             }
@@ -89,10 +87,7 @@ private ProgressBar progressBar;
 
     private void login() {
         progressBar.setVisibility(View.VISIBLE);
-loginbtn.setEnabled(false);
-
-
-
+        loginbtn.setEnabled(false);
 
         StringRequest request = new StringRequest(Request.Method.POST, Constants.LOGIN_URL, new Response.Listener<String>() {
             @Override
@@ -104,8 +99,9 @@ loginbtn.setEnabled(false);
                     startActivity(new Intent(getApplicationContext(), Home.class));
                     loginbtn.setEnabled(true);
                     editor.putString(Constants.KEY_EMAIL, email);
+                    editor.putString("Status","In");
                     editor.putInt("Type",1);
-                    editor.commit();
+                    editor.apply();
                 }
                 else if (response.toString().contains("Retailer")) {
                     progressBar.setVisibility(View.INVISIBLE);
@@ -113,7 +109,8 @@ loginbtn.setEnabled(false);
                     loginbtn.setEnabled(true);
                     editor.putString(Constants.KEY_EMAIL, email);
                     editor.putInt("Type",0);
-                    editor.commit();
+                    editor.putString("Status","In");
+                    editor.apply();
                 }
                 else {
                     Toast.makeText(getApplicationContext(), "Invalid Credentials", Toast.LENGTH_SHORT).show();
