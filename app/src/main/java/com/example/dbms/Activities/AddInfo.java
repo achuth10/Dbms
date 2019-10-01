@@ -27,10 +27,10 @@ import java.util.List;
 import java.util.Map;
 
 public class AddInfo extends AppCompatActivity {
-private Button updatebtn,addcropbtn;
+    private Button updatebtn,addcropbtn;
     private String[] items;
-private EditText locationedit,phedit,rainfalledit,tempedit;
-private Spinner spinner;
+    private EditText locationedit,phedit,rainfalledit,tempedit;
+    private Spinner spinner;
     private ProgressBar progressBar;
     private SharedPreferences pref ;
     private SharedPreferences.Editor editor ;

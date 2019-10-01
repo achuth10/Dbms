@@ -27,15 +27,18 @@ public class SignUp extends AppCompatActivity {
     private Button signup;
     private String name, email, password;
     private EditText emailedit,passwordedit,nameedit;
-    private TextView alreadyuser;
+    private TextView alreadyuser,farmer,retailer;
+    private boolean farmclick,retclick;
     private SharedPreferences pref ;
     private SharedPreferences.Editor editor ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-
-
+        farmclick= true;
+        retclick=false;
+        farmer = findViewById(R.id.FarmerSelect);
+        retailer = findViewById(R.id.RetailerSelect);
         signup = findViewById(R.id.SignUpBtn);
         nameedit = (EditText)findViewById(R.id.NameEdit);
         emailedit = (EditText)findViewById(R.id.EmailEdit);
@@ -56,11 +59,30 @@ public class SignUp extends AppCompatActivity {
 
             if(name.length()>0 && email.length()>0 && password.length()> 0 )
             {
+                signup.setEnabled(false);
                 insertnewuser();
             }
             }
         });
+        farmer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                farmclick = true;
+                retclick= false;
+                farmer.setBackgroundColor(getColor(R.color.white));
+                retailer.setBackgroundColor(getColor(R.color.background_color));
+            }
+        });
 
+        retailer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                retclick = true;
+                farmclick= false;
+                retailer.setBackgroundColor(getColor(R.color.white));
+                farmer.setBackgroundColor(getColor(R.color.background_color));
+            }
+        });
         alreadyuser.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -81,6 +103,7 @@ private void insertnewuser()
             if(response.toString().contains("Values inserted")) {
                 editor.putString(Constants.KEY_EMAIL, email);
                 editor.commit();
+                signup.setEnabled(true);
                 startActivity(new Intent(getApplicationContext(), Home.class));
                 }
             }
@@ -89,6 +112,7 @@ private void insertnewuser()
         public void onErrorResponse(VolleyError error) {
             Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_SHORT).show();
             System.out.println(error.toString());
+            signup.setEnabled(true);
         }
     })
     {
@@ -99,6 +123,11 @@ private void insertnewuser()
             params.put(Constants.KEY_NAME,name);
             params.put(Constants.KEY_EMAIL,email);
             params.put(Constants.KEY_PASSWORD,password);
+            if(farmclick)
+                params.put(Constants.KEY_TYPE,"Farmer");
+            else
+                if(retclick)
+                    params.put(Constants.KEY_TYPE,"Retailer");
 
             return params;
         }

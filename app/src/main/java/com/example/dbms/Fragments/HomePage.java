@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +29,9 @@ import com.example.dbms.Models.PhAdapter;
 import com.example.dbms.Models.RainAdapter;
 import com.example.dbms.Models.TempAdapter;
 import com.example.dbms.R;
+import com.github.ybq.android.spinkit.SpinKitView;
+import com.github.ybq.android.spinkit.sprite.Sprite;
+import com.github.ybq.android.spinkit.style.DoubleBounce;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,7 +50,10 @@ public class HomePage extends Fragment {
     private String[] idealcropslist ,phcropslist ,tempcropslist ,raincropslist ,items;
     private RecyclerView idealR,phR,tempR,rainR;
     private TextView ideal,ph,rain,temp;
+    private ProgressBar progressBar;
+    private SpinKitView spinKitView;
     public HomePage() {
+
         // Required empty public constructor
         setRetainInstance(true);
     }
@@ -71,20 +78,15 @@ public class HomePage extends Fragment {
         ph = v.findViewById(R.id.PhCropTxt);
         temp = v.findViewById(R.id.CropTempTxt);
         rain= v.findViewById(R.id.CropRainTxt);
-
+       spinKitView = v.findViewById(R.id.spin_kit);
 
 
         ideal.setVisibility(View.INVISIBLE);
         ph.setVisibility(View.INVISIBLE);
         rain.setVisibility(View.INVISIBLE);
         temp.setVisibility(View.INVISIBLE);
-        return  v;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
         getphcrops();
+        return  v;
     }
 
     private void getphcrops() {
@@ -206,6 +208,7 @@ public class HomePage extends Fragment {
 
 
                 if (getActivity()!=null) {
+                    spinKitView.setVisibility(View.INVISIBLE);
                     ideal.setVisibility(View.VISIBLE);
                     ph.setVisibility(View.VISIBLE);
                     rain.setVisibility(View.VISIBLE);

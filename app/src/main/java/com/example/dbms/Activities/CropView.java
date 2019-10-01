@@ -81,14 +81,14 @@ public class CropView extends AppCompatActivity {
 //                for (String item : items) {
 //                    System.out.println(item);
 //                }
-                if(items.length>=5)
+                if(items.length>=7)
                 {
                     name.setText(items[0]);
                     pollination.setText("Pollination : " + items[3]);
                     ph.setText("Ph : " + items[5]);
                     rainfall.setText("Rainfall : " + items[7]);
                     climate.setText("Climate : " + items[6]);
-                    Glide.with(getApplicationContext()).load(url).into(imageView);
+                    Glide.with(getApplicationContext()).load(items[8]).into(imageView);
                 }
 
 //                if(response.toString().contains("Values inserted"))

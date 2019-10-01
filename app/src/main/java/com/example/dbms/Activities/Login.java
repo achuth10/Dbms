@@ -37,6 +37,7 @@ private ProgressBar progressBar;
     private SharedPreferences pref ;
     private SharedPreferences.Editor editor ;
     private String status;
+    private int type;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +51,7 @@ private ProgressBar progressBar;
         pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode;
         editor = pref.edit();
         status = pref.getString("Status",null);
-
+        type = pref.getInt("Type",-1);
         loginbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,8 +78,11 @@ private ProgressBar progressBar;
 
         if(status!=null) {
             if (status.equals("In"))
-            {
+            {   if(type==1)
                 startActivity(new Intent(getApplicationContext(), Home.class));
+                else
+                    if(type==0)
+                        startActivity(new Intent(getApplicationContext(), RetailerHome.class));
             }
         }
     }
@@ -94,13 +98,24 @@ loginbtn.setEnabled(false);
             @Override
             public void onResponse(String response) {
                 //Toast.makeText(getApplicationContext(),response.toString(), Toast.LENGTH_LONG).show();
-               // System.out.println("Response is : " + response.toString());
-                if (response.toString().contains("Logged in")) {
+                //System.out.println("Response is : " + response.toString());
+                if (response.toString().contains("Farmer")) {
                     progressBar.setVisibility(View.INVISIBLE);
                     startActivity(new Intent(getApplicationContext(), Home.class));
+                    loginbtn.setEnabled(true);
                     editor.putString(Constants.KEY_EMAIL, email);
+                    editor.putInt("Type",1);
                     editor.commit();
-                } else {
+                }
+                else if (response.toString().contains("Retailer")) {
+                    progressBar.setVisibility(View.INVISIBLE);
+                    startActivity(new Intent(getApplicationContext(), RetailerHome.class));
+                    loginbtn.setEnabled(true);
+                    editor.putString(Constants.KEY_EMAIL, email);
+                    editor.putInt("Type",0);
+                    editor.commit();
+                }
+                else {
                     Toast.makeText(getApplicationContext(), "Invalid Credentials", Toast.LENGTH_SHORT).show();
                     progressBar.setVisibility(View.INVISIBLE);
                     loginbtn.setEnabled(true);

@@ -23,4 +23,5 @@ public class Constants {
     public  static final String KEY_RAINFALL= "rainfall";
     public  static final String KEY_PH = "ph";
     public  static final String KEY_TEMP = "temp";
+    public  static final String KEY_TYPE="type";
 }
