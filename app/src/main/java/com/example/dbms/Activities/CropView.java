@@ -32,6 +32,7 @@ public class CropView extends AppCompatActivity {
     private ImageView imageView;
     private String url = "https://i.ibb.co/GMLVq5H/Maize.jpg";
     private Button delete;
+    private int action;
     private SharedPreferences pref ;
     private SharedPreferences.Editor editor ;
     private RelativeLayout relativeLayout;
@@ -51,24 +52,66 @@ public class CropView extends AppCompatActivity {
         editor = pref.edit();
         if(bundle.getString("Crop")!= null)
         {
-            if(bundle.getInt("Delete")==0)
-                delete.setVisibility(View.INVISIBLE);
+            action = bundle.getInt("Delete");
+            if(action==0)
+                delete.setText("Add crop");
             cropname = bundle.getString("Crop");
             getCropDetails();
         }
         delete.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                deleteCrop();
+                if(action!=0)
+                    deleteCrop();
                 return true;
             }
         });
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Snackbar.make(relativeLayout,"Long press to confirm delete",Snackbar.LENGTH_SHORT).show();
+                if (action== 0) {
+                    addcrop();
+                } else {
+                    Snackbar.make(relativeLayout, "Long press to confirm delete", Snackbar.LENGTH_SHORT).show();
+                }
             }
         });
+    }
+
+    private void addcrop() {
+        StringRequest request = new StringRequest(Request.Method.POST, Constants.ADDCROP_URL, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                //Toast.makeText(getContext(),response.toString(), Toast.LENGTH_LONG).show();
+                System.out.println("Response is : " + response.toString());
+                if(response.toString().contains("Values inserted"))
+                {
+                    Toast.makeText(getApplicationContext(),"Crop Added",Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+                else
+                    Toast.makeText(getApplicationContext(),"Error",Toast.LENGTH_SHORT).show();
+
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_SHORT).show();
+                System.out.println("Error is " + error.toString());
+            }
+        })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map <String,String> params  = new HashMap<String,String>();
+                params.put(Constants.KEY_EMAIL,pref.getString(Constants.KEY_EMAIL, null));
+                params.put(Constants.KEY_CROP,cropname);
+                return params;
+            }
+        };
+
+        MySingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
     }
 
     private void getCropDetails() {
