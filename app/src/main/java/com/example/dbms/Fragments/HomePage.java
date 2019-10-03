@@ -161,7 +161,7 @@ public class HomePage extends Fragment {
                         Collections.addAll(i1, sa);
                     }
 
-                    for(int i = 0;i<i1.size();i++)
+                    for(int i = 0;i<i1.size()-1;i++)
                     {
                         idealcrops.add(new Crop(i1.get(i),i1.get(i+1)));
                         i=1+1;
@@ -183,6 +183,7 @@ public class HomePage extends Fragment {
                     {
                         phcrops.add(new Crop(p1.get(i),p1.get(i+1)));
                         i=i+1;
+
                     }
 //                    for (Crop phcrop : phcrops) {
 //                        System.out.println("Crop is " + phcrop.getCrop_name() + " url is " + phcrop.getUrl());
@@ -199,10 +200,11 @@ public class HomePage extends Fragment {
                         sa = s.split("ZZ");
                         Collections.addAll(t1, sa);
                     }
-                    for(int i = 0 ; i<p1.size()-1;i++)
+                    for(int i = 0 ; i<t1.size()-1;i++)
                     {
                         tempcrops.add(new Crop(t1.get(i),t1.get(i+1)));
                         i=i+1;
+
                     }
 //                    for (Crop phcrop : tempcrops) {
 //                        System.out.println("Crop is " + phcrop.getCrop_name() + " url is " + phcrop.getUrl());
@@ -224,6 +226,8 @@ public class HomePage extends Fragment {
                     {
                         raincrops.add(new Crop(r1.get(i),r1.get(i+1)));
                         i=i+1;
+//                        if(i==r1.size())
+//                            break;
                     }
 //                    for (Crop phcrop : raincrops) {
 //                        System.out.println("Crop is " + phcrop.getCrop_name() + " url is " + phcrop.getUrl());
