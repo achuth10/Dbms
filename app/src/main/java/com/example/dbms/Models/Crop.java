@@ -7,6 +7,11 @@ public class Crop {
     private String min_rainfall;
     private String url;
 
+    public Crop(String s, String s1) {
+        crop_name = s;
+        url = s1;
+    }
+
     public String getUrl() {
         return url;
     }

@@ -28,6 +28,7 @@ import com.example.dbms.Models.MySingleton;
 import com.example.dbms.R;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -87,21 +88,29 @@ private Spinner spinner;
             @Override
             public void onResponse(String response) {
                 //Toast.makeText(getContext(),response.toString(), Toast.LENGTH_LONG).show();
-                //System.out.println("My ccrops is : " + response.toString());
+                //System.out.println("My crops is : " + response.toString());
                 items = response.split(",");
                 ArrayList<Crop> crops =  new ArrayList<Crop>();
-                for (String item : items) {
-                    crops.add(new Crop(item));
+                String[] sa;
+                ArrayList<String> r1 = new ArrayList<>();
+                if(items!=null) {
+                    for (String s : items) {
+                        sa = s.split("ZZZZ");
+                        Collections.addAll(r1, sa);
+                    }
+                    for(int i = 0 ; i<r1.size()-1;i++)
+                    {
+                        crops.add(new Crop(r1.get(i),r1.get(i+1)));
+                        i=i+1;
+                    }
+//                    for (Crop phcrop : crops) {
+//                        System.out.println("Crop is " + phcrop.getCrop_name() + " url is " + phcrop.getUrl());
+//                    }
                 }
+                else
+                    crops.add(new Crop("No crops"));
 
                 if (getActivity()!=null) {
-//                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-//                            getActivity(), android.R.layout.simple_spinner_item, spinnerArray);
-//
-//                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//                    spinner.setAdapter(adapter);
-
-
                     dispadapter(crops);
                     progressBar.setVisibility(View.INVISIBLE);
                 }

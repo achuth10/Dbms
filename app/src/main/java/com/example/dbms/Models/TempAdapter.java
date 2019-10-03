@@ -5,11 +5,13 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.dbms.Activities.CropView;
 import com.example.dbms.R;
 
@@ -47,15 +49,19 @@ public class TempAdapter extends RecyclerView.Adapter <TempAdapter.CropHolder>{
         private TextView name,itemno,price;
         private Context context;
         private String Cropname;
+        private ImageView imageView;
         CropHolder( View itemView) {
             super(itemView);
             context=itemView.getContext();
             name = itemView.findViewById(R.id.CropNameListTxt);
+            imageView = itemView.findViewById(R.id.CropImageRecycler);
         }
         void setdetails(Crop crop, Context context) {
             Cropname = crop.getCrop_name();
             name.setText(Cropname);
-            name.setOnClickListener(this);
+            imageView = itemView.findViewById(R.id.CropImageRecycler);
+            Glide.with(context).load(crop.getUrl()).into(imageView);
+            imageView.setOnClickListener(this);
         }
         @Override
         public void onClick(View v) {
