@@ -76,10 +76,6 @@ private Spinner spinner;
         progressBar.setVisibility(View.VISIBLE);
             getMyCrops();
 
-
-        //Setting the ArrayAdapter data on the Spinner
-
-
     }
     private void getMyCrops() {
 
