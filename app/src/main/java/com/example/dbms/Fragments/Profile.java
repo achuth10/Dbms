@@ -50,12 +50,10 @@ public class Profile extends Fragment {
     private Toolbar toolbar;
     private String[] items;
     private FloatingActionButton fab;
-    private TextView name,location,temp,rain;
+    private TextView name,location,temp,rain,ph;
     private SharedPreferences pref ;
     private SharedPreferences.Editor editor ;
-    private CropAdapter cropAdapter;
-   // private RecyclerView recyclerView;
-//    private ProgressBar progressBar;
+    private ProgressBar progressBar;
     public Profile() {
         // Required empty public constructor
         setRetainInstance(true);
@@ -70,10 +68,10 @@ public class Profile extends Fragment {
         fab = v.findViewById(R.id.floatingActionButton);
         name = v.findViewById(R.id.nametxt);
         location = v.findViewById(R.id.LocationTxt);
-        //recyclerView = v.findViewById(R.id.CropListRecyclerProfile);
         rain = v.findViewById(R.id.RainfallTxt);
-//        progressBar = v.findViewById(R.id.MyProfileProgress);
+        progressBar = v.findViewById(R.id.MyProfileProgress);
         temp= v.findViewById(R.id.AverageTempTxt);
+        ph = v.findViewById(R.id.PhProfiletext);
         pref = getActivity().getSharedPreferences("MyPref", 0); // 0 - for private mode;
         editor = pref.edit();
         fab.setOnClickListener(new View.OnClickListener() {
@@ -106,10 +104,12 @@ public class Profile extends Fragment {
 //                    System.out.println(item);
 //                }
                 if(items.length>=4) {
+                    progressBar.setVisibility(View.INVISIBLE);
                     name.setText("Name : " + items[0]);
                     location.setText("Location : " + items[1]);
                     temp.setText("Temperature : " + items[2]);
                     rain.setText("Rainfall (cm) : " + items[3]);
+                    ph.setText("Ph : " + items[4]);
                 }
 
             }

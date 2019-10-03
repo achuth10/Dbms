@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -39,14 +40,13 @@ import java.util.Map;
  */
 public class Dashboard extends Fragment {
 
-private Spinner spinner;
     private String[] items;
     private ProgressBar progressBar;
     private CropAdapter cropAdapter;
     private RecyclerView recyclerView;
     private SharedPreferences pref ;
     private SharedPreferences.Editor editor ;
-//    ArrayAdapter aa;
+
     public Dashboard() {
         // Required empty public constructor
         setRetainInstance(true);
@@ -58,7 +58,6 @@ private Spinner spinner;
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View  v = inflater.inflate(R.layout.fragment_dashboard, container, false);
-//        spinner = v.findViewById(R.id.Crop_spinner);
         progressBar = v.findViewById(R.id.ListProgress);
         recyclerView = v.findViewById(R.id.CropListRecyclerDashboard);
         pref = getActivity().getSharedPreferences("MyPref", 0); // 0 - for private mode;
@@ -99,9 +98,6 @@ private Spinner spinner;
                         crops.add(new Crop(r1.get(i),r1.get(i+1)));
                         i=i+1;
                     }
-//                    for (Crop phcrop : crops) {
-//                        System.out.println("Crop is " + phcrop.getCrop_name() + " url is " + phcrop.getUrl());
-//                    }
                 }
                 else
                     crops.add(new Crop("No crops"));
@@ -132,7 +128,7 @@ private Spinner spinner;
     }
     private void dispadapter(ArrayList<Crop> crops) {
         cropAdapter = new CropAdapter(getContext(),crops);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(),2));
         recyclerView.setAdapter(cropAdapter);
         cropAdapter.notifyDataSetChanged();
     }

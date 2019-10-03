@@ -30,7 +30,6 @@ public class CropView extends AppCompatActivity {
     private String cropname = "No Info";
     private TextView name,pollination,rainfall,ph,climate;
     private ImageView imageView;
-    private String url = "https://i.ibb.co/GMLVq5H/Maize.jpg";
     private Button delete;
     private int action;
     private SharedPreferences pref ;
@@ -121,9 +120,6 @@ public class CropView extends AppCompatActivity {
                 //Toast.makeText(getApplicationContext(),response.toString(), Toast.LENGTH_LONG).show();
                 //System.out.println("Response is : " + response.toString());
                 String[] items = response.split(",");
-//                for (String item : items) {
-//                    System.out.println(item);
-//                }
                 if(items.length>=7)
                 {
                     name.setText(items[0]);
@@ -134,8 +130,6 @@ public class CropView extends AppCompatActivity {
                     Glide.with(getApplicationContext()).load(items[8]).into(imageView);
                 }
 
-//                if(response.toString().contains("Values inserted"))
-//                    startActivity(new Intent(getContext(), Home.class));
             }
         }, new Response.ErrorListener() {
             @Override
