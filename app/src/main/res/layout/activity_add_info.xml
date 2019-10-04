@@ -30,6 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:layout_centerHorizontal="true"
+        android:inputType="number"
         android:layout_below="@id/LocationEdit"
         android:hint="Enter rainfall in cm"
         android:id="@+id/RainfallEdit"/>
@@ -40,6 +41,7 @@
         android:layout_margin="20dp"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:inputType="number"
         android:layout_below="@id/RainfallEdit"
         android:hint="Enter average Temperature "
         android:id="@+id/TempEdit"/>
@@ -50,6 +52,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/TempEdit"
+        android:inputType="number"
         android:hint="Enter ph level of soil "
         android:id="@+id/PhEdit"/>
 
