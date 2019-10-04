@@ -103,9 +103,14 @@ private void insertnewuser()
             if(response.toString().contains("Values inserted")) {
                 editor.putString(Constants.KEY_EMAIL, email);
                 editor.commit();
-                signup.setEnabled(true);
+
                 startActivity(new Intent(getApplicationContext(), Home.class));
                 }
+            else if(response.toString().contains("User already exists"))
+            {
+                Toast.makeText(getApplicationContext(),"User already exits",Toast.LENGTH_SHORT).show();
+            }
+            signup.setEnabled(true);
             }
     }, new Response.ErrorListener() {
         @Override
