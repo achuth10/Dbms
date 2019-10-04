@@ -16,44 +16,61 @@
     />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
+        android:gravity="center"
+        android:textColor="#FFFFFF"
+        android:background="@color/colorPrimaryDark"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:textSize="30dp"
-        android:textColor="#000000"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="50dp"
+        android:textSize="30sp"
         android:id="@+id/CropNameTxt"/>
 
 <ImageView
-    android:layout_width="200dp"
-    android:layout_height="200dp"
+    android:layout_width="match_parent"
+    android:layout_height="300dp"
+    android:layout_marginBottom="30dp"
     android:id="@+id/CropImage"
-    android:layout_centerHorizontal="true"
+    android:scaleType="centerCrop"
     android:layout_below="@id/CropNameTxt"
-    android:layout_margin="20dp"/>
+    android:layout_centerHorizontal="true"
+    />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="#000000"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/CropImage"
-        android:textSize="20dp"
+        android:textSize="30sp"
         android:layout_margin="15dp"
         android:id="@+id/ClimateTxt"/>
 
 
 
-
-
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/ClimateImg"
+        android:layout_below="@id/CropImage"
+        android:src="@drawable/climateicon"
+        android:layout_toStartOf="@id/ClimateTxt"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:textColor="#000000"
         android:layout_below="@id/ClimateTxt"
-        android:textSize="20dp"
+        android:textSize="30sp"
         android:layout_margin="15dp"
         android:id="@+id/PhTxt"/>
+
+<ImageView
+    android:layout_width="50dp"
+    android:layout_height="50dp"
+    android:layout_below="@id/ClimateTxt"
+    android:layout_toStartOf="@id/PhTxt"
+    android:src="@drawable/phicon"/>
 
 
     <TextView
@@ -61,22 +78,40 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/PhTxt"
+        android:textColor="#000000"
         android:id="@+id/RainfallTxt"
+        android:textSize="30sp"
         android:layout_margin="15dp"/>
+
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/rainfallicon"
+        android:layout_below="@id/PhTxt"
+        android:layout_toStartOf="@id/RainfallTxt"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="#000000"
         android:id="@+id/PollinationTxt"
         android:layout_below="@id/RainfallTxt"
         android:layout_margin="15dp"
+        android:textSize="20sp"
         android:layout_centerHorizontal="true"/>
-
+<ImageView
+    android:layout_width="50dp"
+    android:layout_height="50dp"
+    android:layout_below="@id/RainfallTxt"
+    android:layout_toStartOf="@id/PollinationTxt"
+    android:src="@drawable/pollinationicon"/>
 
 <Button
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_centerHorizontal="true"
+    android:layout_marginTop="10dp"
     android:layout_below="@id/PollinationTxt"
     android:text="Delete"
     android:id="@+id/DeleteCropBtn"/>

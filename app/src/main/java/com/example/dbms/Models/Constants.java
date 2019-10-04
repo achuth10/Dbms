@@ -20,6 +20,7 @@ public class Constants {
     public  static final String KEY_EMAIL = "email";
     public  static final String KEY_PASSWORD= "password";
     public  static final String KEY_CROP = "crop";
+    public  static final String KEY_NUM ="number";
     public  static final String KEY_LOCATION = "location";
     public  static final String KEY_RAINFALL= "rainfall";
     public  static final String KEY_PH = "ph";

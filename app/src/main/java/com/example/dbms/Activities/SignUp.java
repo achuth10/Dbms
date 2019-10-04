@@ -29,8 +29,8 @@ import java.util.Map;
 
 public class SignUp extends AppCompatActivity {
     private Button signup;
-    private String name, email, password,confirmpassword,location;
-    private EditText emailedit,passwordedit,nameedit,passconfirmedit;
+    private String name, email, password,confirmpassword,location,number;
+    private EditText emailedit,passwordedit,nameedit,passconfirmedit,numberedit;
     private TextView alreadyuser,farmer,retailer;
     private boolean farmclick,retclick;
     private SharedPreferences pref ;
@@ -47,6 +47,7 @@ public class SignUp extends AppCompatActivity {
         signup = findViewById(R.id.SignUpBtn);
         nameedit = (EditText)findViewById(R.id.NameEdit);
         emailedit = (EditText)findViewById(R.id.EmailEdit);
+        numberedit = findViewById(R.id.numberedit);
         passwordedit = (EditText)findViewById(R.id.PasswordEdit);
         alreadyuser= findViewById(R.id.already_user);
         passconfirmedit = findViewById(R.id.ConfirmPassword);
@@ -63,7 +64,8 @@ public class SignUp extends AppCompatActivity {
                 email = emailedit.getText().toString().trim();
                 password = passwordedit.getText().toString().trim();
                 confirmpassword = passconfirmedit.getText().toString().trim();
-            if(name.length()>0 && email.length()>0 && password.length()> 0 && confirmpassword.length()>0) {
+                number = numberedit.getText().toString().trim();
+            if(name.length()>0 && email.length()>0 && password.length()> 0 && confirmpassword.length()>0&& number.length()>0) {
 
                 if (email.contains("@")) {
                     if (password.equals(confirmpassword)) {
@@ -168,6 +170,7 @@ private void insertnewuser()
             params.put(Constants.KEY_NAME,name);
             params.put(Constants.KEY_EMAIL,email);
             params.put(Constants.KEY_PASSWORD,password);
+            params.put(Constants.KEY_NUM,number);
             if(farmclick)
                 params.put(Constants.KEY_TYPE,"Farmer");
             else

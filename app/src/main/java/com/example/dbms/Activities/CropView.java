@@ -128,10 +128,10 @@ public class CropView extends AppCompatActivity {
                 if(items.length>=7)
                 {
                     name.setText(items[0]);
-                    pollination.setText("Pollination : " + items[3]);
-                    ph.setText("Ph : " + items[5]);
-                    rainfall.setText("Rainfall : " + items[7]);
-                    climate.setText("Climate : " + items[6]);
+                    pollination.setText(items[3]);
+                    ph.setText(items[5]);
+                    rainfall.setText(items[7]);
+                    climate.setText(items[6]);
                     Glide.with(getApplicationContext()).load(items[8]).into(imageView);
                 }
                 progressBar.setVisibility(View.INVISIBLE);

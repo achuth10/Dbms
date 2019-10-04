@@ -17,10 +17,13 @@
         android:src="@drawable/nocrp"/>
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:gravity="center"
+        android:textColor="#FFFFFF"
+        android:background="@color/colorPrimaryDark"
+        android:layout_height="40dp"
         android:id="@+id/DashboardTxt"
-        android:layout_margin="20dp"
+        android:layout_marginBottom="20dp"
         android:layout_centerHorizontal="true"
         android:textSize="20sp"
         android:text="My Crops "/>
