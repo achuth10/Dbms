@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +33,7 @@ public class CropView extends AppCompatActivity {
     private ImageView imageView;
     private Button delete;
     private int action;
+    private ProgressBar progressBar;
     private SharedPreferences pref ;
     private SharedPreferences.Editor editor ;
     private RelativeLayout relativeLayout;
@@ -43,6 +45,8 @@ public class CropView extends AppCompatActivity {
         pollination = findViewById(R.id.PollinationTxt);
         climate = findViewById(R.id.ClimateTxt);
         rainfall = findViewById(R.id.RainfallTxt);
+        progressBar = findViewById(R.id.CropViewProgress);
+        progressBar.setVisibility(View.INVISIBLE);
         ph = findViewById(R.id.PhTxt);
         imageView=findViewById(R.id.CropImage);
         delete = findViewById(R.id.DeleteCropBtn);
@@ -114,6 +118,7 @@ public class CropView extends AppCompatActivity {
     }
 
     private void getCropDetails() {
+        progressBar.setVisibility(View.VISIBLE);
         StringRequest request = new StringRequest(Request.Method.POST, Constants.VIEWCROP_URL, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -129,13 +134,14 @@ public class CropView extends AppCompatActivity {
                     climate.setText("Climate : " + items[6]);
                     Glide.with(getApplicationContext()).load(items[8]).into(imageView);
                 }
-
+                progressBar.setVisibility(View.INVISIBLE);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_SHORT).show();
                 System.out.println(error.toString());
+                progressBar.setVisibility(View.INVISIBLE);
             }
         })
         {

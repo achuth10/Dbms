@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -50,6 +51,7 @@ public class Dashboard extends Fragment {
     private CropAdapter cropAdapter;
     private RecyclerView recyclerView;
     private TextView t1,t2,t3;
+    private ImageView imageView;
     private SharedPreferences pref ;
     private SharedPreferences.Editor editor ;
 
@@ -66,6 +68,7 @@ public class Dashboard extends Fragment {
         View  v = inflater.inflate(R.layout.fragment_dashboard, container, false);
         progressBar = v.findViewById(R.id.ListProgress);
         recyclerView = v.findViewById(R.id.CropListRecyclerDashboard);
+        imageView = v.findViewById(R.id.NocropImage);
         pref = getActivity().getSharedPreferences("MyPref", 0); // 0 - for private mode;
         editor = pref.edit();
         t1= v.findViewById(R.id.TextView1);
@@ -145,14 +148,10 @@ public class Dashboard extends Fragment {
                 .enableDismissAfterShown(true)
                 .usageId("D211") //UNIQUE ID
                 .show();
+        init();
         return v;
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        init();
-    }
 
     private void init() {
         progressBar.setVisibility(View.VISIBLE);
@@ -171,7 +170,7 @@ public class Dashboard extends Fragment {
                 ArrayList<Crop> crops =  new ArrayList<Crop>();
                 String[] sa;
                 ArrayList<String> r1 = new ArrayList<>();
-                if(items!=null) {
+                if(!items[0].equals("")) {
                     for (String s : items) {
                         sa = s.split("ZZZZ");
                         Collections.addAll(r1, sa);
@@ -181,15 +180,13 @@ public class Dashboard extends Fragment {
                         crops.add(new Crop(r1.get(i),r1.get(i+1)));
                         i=i+1;
                     }
-                }
-                else
-                    crops.add(new Crop("No crops"));
-
-                if (getActivity()!=null) {
                     dispadapter(crops);
-                    progressBar.setVisibility(View.INVISIBLE);
                 }
-
+                else {
+                    System.out.println("Entered else");
+                    imageView.setVisibility(View.VISIBLE);
+                }
+                    progressBar.setVisibility(View.INVISIBLE);
             }
         }, new Response.ErrorListener() {
             @Override

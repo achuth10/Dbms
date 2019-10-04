@@ -1,10 +1,13 @@
 package com.example.dbms.Activities;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,7 +29,7 @@ import java.util.Map;
 
 public class SignUp extends AppCompatActivity {
     private Button signup;
-    private String name, email, password,confirmpassword;
+    private String name, email, password,confirmpassword,location;
     private EditText emailedit,passwordedit,nameedit,passconfirmedit;
     private TextView alreadyuser,farmer,retailer;
     private boolean farmclick,retclick;
@@ -64,10 +67,14 @@ public class SignUp extends AppCompatActivity {
 
                 if (email.contains("@")) {
                     if (password.equals(confirmpassword)) {
-                    signup.setEnabled(false);
-                    insertnewuser();
-                        //Toast.makeText(getApplicationContext(), "Passwords match", Toast.LENGTH_SHORT).show();
-                    } else {
+                        signup.setEnabled(false);
+                        if (retclick) {
+                            showChangeLangDialog();
+                        } else if (!retclick) {
+                            insertnewuser();
+                            //Toast.makeText(getApplicationContext(), "Passwords match", Toast.LENGTH_SHORT).show();
+                        }
+                    }else {
                         Toast.makeText(getApplicationContext(), "Passwords don't match", Toast.LENGTH_SHORT).show();
                         passwordedit.requestFocus();
                     }
@@ -164,9 +171,10 @@ private void insertnewuser()
             if(farmclick)
                 params.put(Constants.KEY_TYPE,"Farmer");
             else
-                if(retclick)
-                    params.put(Constants.KEY_TYPE,"Retailer");
-
+                if(retclick) {
+                    params.put(Constants.KEY_TYPE, "Retailer");
+                    params.put(Constants.KEY_LOCATION,location);
+                }
             return params;
         }
     };
@@ -174,7 +182,38 @@ private void insertnewuser()
     MySingleton.getInstance(getApplicationContext()).addToRequestQueue(request);
 
 }
+    public void showChangeLangDialog() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        final View dialogView = inflater.inflate(R.layout.popup, null);
+        dialogBuilder.setView(dialogView);
 
+        final EditText edt = (EditText) dialogView.findViewById(R.id.edt_comment);
+
+        dialogBuilder.setTitle("Add location");
+        dialogBuilder.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                if (edt.getText().toString().length() > 0) {
+                    location = edt.getText().toString().trim();
+                    editor.putString("location", location);
+                    editor.commit();
+                    insertnewuser();
+                   // Toast.makeText(getApplicationContext(),"Small vibrations start at " + 0.85*Integer.parseInt(edt.getText().toString().trim()),Toast.LENGTH_SHORT).show();
+                } else {
+                    showChangeLangDialog();
+                    Toast.makeText(getApplicationContext(),"Enter a  location to proceed",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        dialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                //pass
+            signup.setEnabled(true);
+            }
+        });
+        AlertDialog b = dialogBuilder.create();
+        b.show();
+    }
     @Override
     protected void onStart() {
         super.onStart();
