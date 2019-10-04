@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,12 +26,13 @@ import java.util.Map;
 
 public class SignUp extends AppCompatActivity {
     private Button signup;
-    private String name, email, password;
-    private EditText emailedit,passwordedit,nameedit;
+    private String name, email, password,location;
+    private EditText emailedit,passwordedit,nameedit,locationedit;
     private TextView alreadyuser,farmer,retailer;
     private boolean farmclick,retclick;
     private SharedPreferences pref ;
     private SharedPreferences.Editor editor ;
+    private ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,10 +46,11 @@ public class SignUp extends AppCompatActivity {
         emailedit = (EditText)findViewById(R.id.EmailEdit);
         passwordedit = (EditText)findViewById(R.id.PasswordEdit);
         alreadyuser= findViewById(R.id.already_user);
+        locationedit = findViewById(R.id.SignUpLocation);
         pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode;
         editor = pref.edit();
-
-
+        progressBar = findViewById(R.id.SignupProgress);
+        progressBar.setVisibility(View.INVISIBLE);
 
 
         signup.setOnClickListener(new View.OnClickListener() {
@@ -56,11 +59,15 @@ public class SignUp extends AppCompatActivity {
                 name = nameedit.getText().toString().trim();
                 email = emailedit.getText().toString().trim();
                 password = passwordedit.getText().toString().trim();
-
-            if(name.length()>0 && email.length()>0 && password.length()> 0 )
+                location = locationedit.getText().toString().trim();
+            if(name.length()>0 && email.length()>0 && password.length()> 0 && location.length()>0)
             {
                 signup.setEnabled(false);
                 insertnewuser();
+            }
+            else
+            {
+                Toast.makeText(getApplicationContext(),"Please fill in all the fields",Toast.LENGTH_SHORT).show();
             }
             }
         });
@@ -95,12 +102,17 @@ public class SignUp extends AppCompatActivity {
 
 private void insertnewuser()
 {
+    progressBar.setVisibility(View.VISIBLE);
+    signup.setBackgroundColor(getColor(R.color.background_color));
+    signup.setEnabled(false);
     StringRequest request = new StringRequest(Request.Method.POST, Constants.REG_URL, new Response.Listener<String>() {
         @Override
         public void onResponse(String response) {
             //Toast.makeText(getApplicationContext(),response.toString(), Toast.LENGTH_LONG).show();
             System.out.println("Response is : " + response.toString());
             if(response.toString().contains("Values inserted")) {
+                signup.setBackgroundColor(getColor(R.color.white_greyish));
+                progressBar.setVisibility(View.INVISIBLE);
                 editor.putString(Constants.KEY_EMAIL, email);
                 editor.commit();
 
@@ -108,6 +120,8 @@ private void insertnewuser()
                 }
             else if(response.toString().contains("User already exists"))
             {
+                signup.setBackgroundColor(getColor(R.color.button_selectorcolor));
+                progressBar.setVisibility(View.INVISIBLE);
                 Toast.makeText(getApplicationContext(),"User already exits",Toast.LENGTH_SHORT).show();
             }
             signup.setEnabled(true);
@@ -117,6 +131,8 @@ private void insertnewuser()
         public void onErrorResponse(VolleyError error) {
             Toast.makeText(getApplicationContext(),error.toString(),Toast.LENGTH_SHORT).show();
             System.out.println(error.toString());
+            signup.setBackgroundColor(getColor(R.color.white_greyish));
+            progressBar.setVisibility(View.INVISIBLE);
             signup.setEnabled(true);
         }
     })
@@ -128,6 +144,7 @@ private void insertnewuser()
             params.put(Constants.KEY_NAME,name);
             params.put(Constants.KEY_EMAIL,email);
             params.put(Constants.KEY_PASSWORD,password);
+            params.put(Constants.KEY_LOCATION,location);
             if(farmclick)
                 params.put(Constants.KEY_TYPE,"Farmer");
             else

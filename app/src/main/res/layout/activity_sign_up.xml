@@ -113,7 +113,7 @@
         android:background="@color/white_greyish" />
 
     <EditText
-        android:id="@+id/confirmPassword"
+        android:id="@+id/SignUpLocation"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
@@ -121,8 +121,7 @@
         android:drawableLeft="@drawable/confirm_password"
         android:drawablePadding="8dp"
         android:gravity="center_vertical"
-        android:hint="@string/confirmPassword"
-        android:inputType="textPassword"
+        android:hint="Location"
         android:padding="10dp"
         android:singleLine="true"
         android:textColor="@color/white"
@@ -182,5 +181,11 @@
         android:text="@string/already_user"
         android:textColor="@color/white_greyish"
         android:textSize="15sp" />
+<ProgressBar
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
 
+    android:layout_gravity="center_horizontal"
+    android:indeterminateTint="#FFFFFF"
+    android:id="@+id/SignupProgress"/>
 </LinearLayout>
