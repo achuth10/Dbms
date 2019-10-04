@@ -3,6 +3,7 @@ package com.example.dbms.Fragments;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -36,6 +37,7 @@ import com.example.dbms.Models.CropAdapter;
 import com.example.dbms.Models.MySingleton;
 import com.example.dbms.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.wooplr.spotlight.SpotlightView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -80,6 +82,26 @@ public class Profile extends Fragment {
                 startActivity(new Intent(getContext(), AddInfo.class));
             }
         });
+        new SpotlightView.Builder(getActivity())
+                .introAnimationDuration(400)
+                .enableRevealAnimation(true)
+                .performClick(true)
+                .fadeinTextDuration(400)
+                .headingTvColor(Color.parseColor("#eb273f"))
+                .headingTvSize(32)
+                .headingTvText("Update info")
+                .subHeadingTvColor(Color.parseColor("#ffffff"))
+                .subHeadingTvSize(16)
+                .subHeadingTvText("Click here\nto update your info.")
+                .maskColor(Color.parseColor("#dc000000"))
+                .target(fab)
+                .lineAnimDuration(400)
+                .lineAndArcColor(Color.parseColor("#eb273f"))
+                .dismissOnTouch(true)
+                .dismissOnBackPress(true)
+                .enableDismissAfterShown(true)
+                .usageId("Profile") //UNIQUE ID
+                .show();
         return  v;
 
     }

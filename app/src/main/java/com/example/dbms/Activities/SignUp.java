@@ -115,9 +115,15 @@ private void insertnewuser()
                 progressBar.setVisibility(View.INVISIBLE);
                 editor.putString(Constants.KEY_EMAIL, email);
                 editor.commit();
-
-                startActivity(new Intent(getApplicationContext(), Home.class));
+                if(retclick) {
+                    editor.putString(Constants.KEY_LOCATION, location);
+                    editor.commit();
+                    startActivity(new Intent(getApplicationContext(),RetailerHome.class));
                 }
+                else if (farmclick)
+                    startActivity(new Intent(getApplicationContext(),InitialAdd.class));// Home.class));
+
+            }
             else if(response.toString().contains("User already exists"))
             {
                 signup.setBackgroundColor(getColor(R.color.button_selectorcolor));

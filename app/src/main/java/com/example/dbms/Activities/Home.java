@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -12,6 +13,7 @@ import com.example.dbms.Fragments.HomePage;
 import com.example.dbms.Fragments.Profile;
 import com.example.dbms.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.wooplr.spotlight.SpotlightView;
 
 public class Home extends AppCompatActivity {
 private BottomNavigationView bottomNavigationView;

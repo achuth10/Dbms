@@ -15,6 +15,7 @@ public class Constants {
     public  static final String SUITABLECROPS_URL = DB_URL + "SuitableCrops.php";
     public  static final String AVAILABLECROPS_URL = DB_URL + "ListAvailableCrops.php";
     public  static final String DELETEROP_URL = DB_URL + "DeleteCrop.php";
+    public  static final String RETAILER_CROP = DB_URL + "RetailerCrops.php";
     public  static final String KEY_NAME = "name";
     public  static final String KEY_EMAIL = "email";
     public  static final String KEY_PASSWORD= "password";

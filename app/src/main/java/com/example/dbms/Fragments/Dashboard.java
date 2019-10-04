@@ -2,6 +2,7 @@ package com.example.dbms.Fragments;
 
 
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -27,6 +29,9 @@ import com.example.dbms.Models.Crop;
 import com.example.dbms.Models.CropAdapter;
 import com.example.dbms.Models.MySingleton;
 import com.example.dbms.R;
+import com.wooplr.spotlight.SpotlightView;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -44,6 +49,7 @@ public class Dashboard extends Fragment {
     private ProgressBar progressBar;
     private CropAdapter cropAdapter;
     private RecyclerView recyclerView;
+    private TextView t1,t2,t3;
     private SharedPreferences pref ;
     private SharedPreferences.Editor editor ;
 
@@ -62,6 +68,83 @@ public class Dashboard extends Fragment {
         recyclerView = v.findViewById(R.id.CropListRecyclerDashboard);
         pref = getActivity().getSharedPreferences("MyPref", 0); // 0 - for private mode;
         editor = pref.edit();
+        t1= v.findViewById(R.id.TextView1);
+        t2= v.findViewById(R.id.TextView2);
+        t3= v.findViewById(R.id.TextView3);
+
+
+
+
+
+
+
+
+
+
+
+
+        new SpotlightView.Builder(getActivity())
+                .introAnimationDuration(400)
+                .enableRevealAnimation(true)
+                .performClick(true)
+                .fadeinTextDuration(400)
+                .headingTvColor(Color.parseColor("#eb273f"))
+                .headingTvSize(32)
+                .headingTvText("Profile")
+                .subHeadingTvColor(Color.parseColor("#ffffff"))
+                .subHeadingTvSize(16)
+                .subHeadingTvText("View profile info\n")
+                .maskColor(Color.parseColor("#dc000000"))
+                .target(t3)
+                .lineAnimDuration(400)
+                .lineAndArcColor(Color.parseColor("#eb273f"))
+                .dismissOnTouch(true)
+                .dismissOnBackPress(true)
+                .enableDismissAfterShown(true)
+                .usageId("D311") //UNIQUE ID
+                .show();
+
+        new SpotlightView.Builder(getActivity())
+                .introAnimationDuration(400)
+                .enableRevealAnimation(true)
+                .performClick(true)
+                .fadeinTextDuration(400)
+                .headingTvColor(Color.parseColor("#eb273f"))
+                .headingTvSize(32)
+                .headingTvText("Home")
+                .subHeadingTvColor(Color.parseColor("#ffffff"))
+                .subHeadingTvSize(16)
+                .subHeadingTvText("View available crops\n")
+                .maskColor(Color.parseColor("#dc000000"))
+                .target(t1)
+                .lineAnimDuration(400)
+                .lineAndArcColor(Color.parseColor("#eb273f"))
+                .dismissOnTouch(true)
+                .dismissOnBackPress(true)
+                .enableDismissAfterShown(true)
+                .usageId("D111") //UNIQUE ID
+                .show();
+
+        new SpotlightView.Builder(getActivity())
+                .introAnimationDuration(400)
+                .enableRevealAnimation(true)
+                .performClick(true)
+                .fadeinTextDuration(400)
+                .headingTvColor(Color.parseColor("#eb273f"))
+                .headingTvSize(30)
+                .headingTvText("Dashboard")
+                .subHeadingTvColor(Color.parseColor("#ffffff"))
+                .subHeadingTvSize(16)
+                .subHeadingTvText("View your crops \n")
+                .maskColor(Color.parseColor("#dc000000"))
+                .target(t2)
+                .lineAnimDuration(400)
+                .lineAndArcColor(Color.parseColor("#eb273f"))
+                .dismissOnTouch(true)
+                .dismissOnBackPress(true)
+                .enableDismissAfterShown(true)
+                .usageId("D211") //UNIQUE ID
+                .show();
         return v;
     }
 
@@ -134,74 +217,4 @@ public class Dashboard extends Fragment {
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//    private void getcrops() {
-////        StringRequest request = new StringRequest(Request.Method.POST, Constants.LISTCROP_URL, new Response.Listener<String>() {
-////            @Override
-////            public void onResponse(String response) {
-////                //Toast.makeText(getContext(),response.toString(), Toast.LENGTH_LONG).show();
-////                System.out.println("Response is : " + response.toString());
-////               items = response.split(",");
-////                List<String> spinnerArray =  new ArrayList<String>();
-////                for (String item : items) {
-////                    System.out.println(item);
-////                    spinnerArray.add(item);
-////                }
-////
-////                if (getActivity()!=null) {
-////                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-////                            getActivity(), android.R.layout.simple_spinner_item, spinnerArray);
-////
-////                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-////                    spinner.setAdapter(adapter);
-////                    progressBar.setVisibility(View.INVISIBLE);
-////                }
-////
-////            }
-////        }, new Response.ErrorListener() {
-////            @Override
-////            public void onErrorResponse(VolleyError error) {
-////                Toast.makeText(getContext(),error.toString(),Toast.LENGTH_SHORT).show();
-////                System.out.println(error.toString());
-////            }
-////        })
-////        {
-////            @Override
-////            protected Map<String, String> getParams() throws AuthFailureError {
-////                Map <String,String> params  = new HashMap<String,String>();
-////                // params.put(Constants.KEY_EMAIL,pref.getString(Constants.KEY_EMAIL, null));
-////                return params;
-////            }
-////        };
-////
-////        MySingleton.getInstance(getContext()).addToRequestQueue(request);
-//
-//    }
 }

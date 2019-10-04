@@ -26,10 +26,34 @@
 <ProgressBar
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-
+    android:indeterminateTint="@color/colorPrimaryDark"
     android:layout_centerHorizontal="true"
     android:layout_centerVertical="true"
     android:id="@+id/ListProgress"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:id="@+id/TextView1"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/TextView2"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:id="@+id/TextView3"/>
+    </LinearLayout>
 
 
 </RelativeLayout>

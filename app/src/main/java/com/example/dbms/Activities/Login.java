@@ -6,12 +6,14 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,12 +38,20 @@ private ConstraintLayout mainLayout;
 private ProgressBar progressBar;
     private SharedPreferences pref ;
     private SharedPreferences.Editor editor ;
+    private AnimationDrawable animationDrawable;
+    private ConstraintLayout constraintLayout;
     private String status;
     private int type;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        constraintLayout = (ConstraintLayout) findViewById(R.id.container);
+        animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
+        animationDrawable.setEnterFadeDuration(2500);
+        animationDrawable.setExitFadeDuration(5000);
+        animationDrawable.start();
+
         loginbtn= findViewById(R.id.login);
         loginedit = findViewById(R.id.username);
         passwordedit = findViewById(R.id.password);
