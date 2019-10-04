@@ -26,8 +26,8 @@ import java.util.Map;
 
 public class SignUp extends AppCompatActivity {
     private Button signup;
-    private String name, email, password,location;
-    private EditText emailedit,passwordedit,nameedit,locationedit;
+    private String name, email, password,confirmpassword;
+    private EditText emailedit,passwordedit,nameedit,passconfirmedit;
     private TextView alreadyuser,farmer,retailer;
     private boolean farmclick,retclick;
     private SharedPreferences pref ;
@@ -46,7 +46,7 @@ public class SignUp extends AppCompatActivity {
         emailedit = (EditText)findViewById(R.id.EmailEdit);
         passwordedit = (EditText)findViewById(R.id.PasswordEdit);
         alreadyuser= findViewById(R.id.already_user);
-        locationedit = findViewById(R.id.SignUpLocation);
+        passconfirmedit = findViewById(R.id.ConfirmPassword);
         pref = getApplicationContext().getSharedPreferences("MyPref", 0); // 0 - for private mode;
         editor = pref.edit();
         progressBar = findViewById(R.id.SignupProgress);
@@ -59,16 +59,27 @@ public class SignUp extends AppCompatActivity {
                 name = nameedit.getText().toString().trim();
                 email = emailedit.getText().toString().trim();
                 password = passwordedit.getText().toString().trim();
-                location = locationedit.getText().toString().trim();
-            if(name.length()>0 && email.length()>0 && password.length()> 0 && location.length()>0)
-            {
-                signup.setEnabled(false);
-                insertnewuser();
-            }
-            else
-            {
-                Toast.makeText(getApplicationContext(),"Please fill in all the fields",Toast.LENGTH_SHORT).show();
-            }
+                confirmpassword = passconfirmedit.getText().toString().trim();
+            if(name.length()>0 && email.length()>0 && password.length()> 0 && confirmpassword.length()>0) {
+
+                if (email.contains("@")) {
+                    if (password.equals(confirmpassword)) {
+                    signup.setEnabled(false);
+                    insertnewuser();
+                        //Toast.makeText(getApplicationContext(), "Passwords match", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Passwords don't match", Toast.LENGTH_SHORT).show();
+                        passwordedit.requestFocus();
+                    }
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(), "Please enter a valid email id", Toast.LENGTH_SHORT).show();
+                    emailedit.requestFocus();
+                }
+            }else {
+                    Toast.makeText(getApplicationContext(), "Please fill in all the fields", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         farmer.setOnClickListener(new View.OnClickListener() {
@@ -116,7 +127,7 @@ private void insertnewuser()
                 editor.putString(Constants.KEY_EMAIL, email);
                 editor.commit();
                 if(retclick) {
-                    editor.putString(Constants.KEY_LOCATION, location);
+                    //editor.putString(Constants.KEY_LOCATION, location);
                     editor.commit();
                     startActivity(new Intent(getApplicationContext(),RetailerHome.class));
                 }
@@ -150,7 +161,6 @@ private void insertnewuser()
             params.put(Constants.KEY_NAME,name);
             params.put(Constants.KEY_EMAIL,email);
             params.put(Constants.KEY_PASSWORD,password);
-            params.put(Constants.KEY_LOCATION,location);
             if(farmclick)
                 params.put(Constants.KEY_TYPE,"Farmer");
             else

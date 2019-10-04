@@ -59,6 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/PhInitialEdit"
         android:layout_margin="20dp"
+        android:id="@+id/ProceedBtn"
         android:layout_centerHorizontal="true"
         android:text="Proceed"/>
 </RelativeLayout>
